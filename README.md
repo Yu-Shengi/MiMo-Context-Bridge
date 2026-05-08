@@ -14,6 +14,7 @@
 ```bash
 pip install tiktoken pathspec rich
 
+```
 
 # LLM-Context-Flux 🚀
 
