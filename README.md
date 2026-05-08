@@ -8,31 +8,6 @@
     生态共建契合：小米正在寻找 Agent 框架和工具链合作 
 
 
-项目结构
-mimo-context-bridge/
-├── README.md
-├── pyproject.toml
-├── .github/workflows/ci.yml
-├── src/mimo_context_bridge/
-│   ├── __init__.py
-│   ├── core/
-│   │   ├── context_manager.py
-│   │   ├── memory_hierarchy.py
-│   │   └── token_optimizer.py
-│   ├── agents/
-│   │   ├── coding_agent.py
-│   │   └── research_agent.py
-│   ├── retrieval/
-│   │   ├── semantic_chunker.py
-│   │   └── hybrid_search.py
-│   └── adapters/
-│       ├── mimo_client.py
-│       └── vllm_adapter.py
-├── tests/
-└── examples/
-    ├── code_review_bot/
-    ├── paper_assistant/
-    └── repo_analyzer/
 
 # MiMo Context Bridge 🌉
 
@@ -82,3 +57,18 @@ export MIMO_API_KEY="your-api-key-here"
 │  │ 400K     │ └─────────────────────┘ │
 │  └──────────┘                         │
 └─────────────────────────────────────────┘
+
+##基础用法
+
+from mimo_context_bridge import MiMoContextManager
+
+# 初始化上下文管理器（自动配置 100万 Token）
+ctx = MiMoContextManager(model_name="MiMo-V2.5-Pro")
+
+# 分层加载内容
+ctx.add_to_layer("system", "你是一个专业的代码审查助手...")
+ctx.add_to_layer("semantic_memory", "项目背景知识...")
+ctx.add_to_layer("working_context", "当前代码文件内容...")
+
+# 构建优化后的 Prompt
+prompt = ctx.build_prompt("请审查这段代码的并发安全性")
